@@ -4,7 +4,7 @@ import { siteConfig } from '@/lib/config';
 
 export const Footer = () => {
   return (
-    <footer className="text-muted-foreground w-full text-xs sm:text-sm">
+    <footer className="text-muted-foreground bg-background w-full text-xs sm:text-sm">
       <div className="container-wrapper flex h-16 items-center justify-center">
         <div className="text-center">
           Built by{' '}

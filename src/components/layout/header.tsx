@@ -12,7 +12,7 @@ import { Icons } from '@/components/icons';
 
 export const Header = () => {
   return (
-    <header className="sticky top-0 z-50 w-full">
+    <header className="bg-background sticky top-0 z-50 w-full">
       <div className="container-wrapper flex h-16 items-center">
         <MainNav />
         <MobileNav />
