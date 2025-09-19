@@ -3,7 +3,7 @@ export const siteConfig = {
   description: 'A route planning tool for Derail Valley',
   keywords: ['derail valley', 'route planner', 'train simulator'],
   authors: {
-    devTotoro: { name: 'DevTotoro', url: 'https://gitthub.com/DevTotoro' }
+    devTotoro: { name: 'DevTotoro', url: 'https://github.com/DevTotoro' }
   },
   links: {
     github: 'https://github.com/DevTotoro/derail-valley-planner'
