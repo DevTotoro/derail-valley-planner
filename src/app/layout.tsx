@@ -1,10 +1,6 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap'
-});
+import '@/styles/globals.css';
 
 export const metadata: Metadata = {
   title: 'Derail Valley Planner',
@@ -17,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.className} antialiased`}>
+    <html lang="en">
       <body>{children}</body>
     </html>
   );
