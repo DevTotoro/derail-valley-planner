@@ -1,8 +1,12 @@
+import '@/styles/globals.css';
+
 import type { Metadata } from 'next';
 
 import { siteConfig } from '@/lib/config';
+import { fontVariables } from '@/lib/fonts';
+import { cn } from '@/lib/utils';
 
-import '@/styles/globals.css';
+import { Header } from '@/components/layout/header';
 
 export const metadata: Metadata = {
   title: {
@@ -21,7 +25,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-background text-foreground relative flex min-h-svh flex-col">
+      <body
+        className={cn(
+          'bg-background text-foreground relative flex min-h-svh flex-col font-sans antialiased',
+          fontVariables
+        )}
+      >
+        <Header />
         <main className="flex-1">{children}</main>
       </body>
     </html>

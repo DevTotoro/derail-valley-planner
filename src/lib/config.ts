@@ -7,5 +7,15 @@ export const siteConfig = {
   },
   links: {
     github: 'https://github.com/DevTotoro/derail-valley-planner'
-  }
+  },
+  navItems: [
+    {
+      label: 'Locomotives',
+      href: '/locomotives'
+    },
+    {
+      label: 'Stations',
+      href: '/stations'
+    }
+  ]
 };
