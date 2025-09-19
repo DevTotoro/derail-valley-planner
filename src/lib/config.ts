@@ -10,6 +10,10 @@ export const siteConfig = {
   },
   navItems: [
     {
+      label: 'Deliveries',
+      href: '/deliveries'
+    },
+    {
       label: 'Locomotives',
       href: '/locomotives'
     },
