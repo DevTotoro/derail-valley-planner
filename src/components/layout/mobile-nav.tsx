@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useState } from 'react';
 
 import { siteConfig } from '@/lib/config';
 
@@ -7,8 +10,10 @@ import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/icons';
 
 export const MobileNav = () => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild className="sm:hidden">
         <Button variant="ghost" size="icon" className="size-8">
           <Icons.menu className="size-5" />
@@ -21,9 +26,11 @@ export const MobileNav = () => {
           <SheetDescription>Navigation links</SheetDescription>
         </SheetHeader>
 
-        <Link href="/">Home</Link>
+        <Link href="/" onClick={() => setOpen(false)}>
+          Home
+        </Link>
         {siteConfig.navItems.map(item => (
-          <Link key={item.href} href={item.href}>
+          <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
             {item.label}
           </Link>
         ))}
