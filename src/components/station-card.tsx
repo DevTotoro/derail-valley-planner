@@ -23,7 +23,7 @@ export const StationCard = ({ stationId }: Props) => {
 
       <CardContent className="grid grid-cols-2 gap-2">
         {Object.entries(stationUtilities).map(([key, label]) => {
-          const Icon = Icons[key as keyof typeof stationUtilities];
+          const Icon = getUtilityIcon(key as keyof typeof stationUtilities);
 
           return (
             <div key={key} className="flex items-center gap-4">
@@ -52,4 +52,19 @@ export const StationCard = ({ stationId }: Props) => {
       </CardContent>
     </Card>
   );
+};
+
+const getUtilityIcon = (utility: keyof typeof stationUtilities) => {
+  switch (utility) {
+    case 'rs':
+      return Icons.repairStation;
+    case 'ds':
+      return Icons.dieselService;
+    case 'cs':
+      return Icons.coalService;
+    case 'ec':
+      return Icons.electricCharger;
+    case 's':
+      return Icons.shop;
+  }
 };
