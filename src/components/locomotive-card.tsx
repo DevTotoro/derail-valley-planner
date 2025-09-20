@@ -12,22 +12,17 @@ interface Props {
 }
 
 export const LocomotiveCard = ({ locomotiveId }: Props) => {
-  const locomotive = locomotives[locomotiveId];
+  const { name, url, type, dimensions, weight, loadRating } = locomotives[locomotiveId];
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>
-          <Link
-            href={locomotive.url}
-            target="_blank"
-            rel="noreferrer"
-            className="font-medium underline underline-offset-4"
-          >
-            {locomotive.name}
+          <Link href={url} target="_blank" rel="noreferrer" className="font-medium underline underline-offset-4">
+            {name}
           </Link>
         </CardTitle>
-        <CardDescription>{locomotiveTypes[locomotive.type]}</CardDescription>
+        <CardDescription>{locomotiveTypes[type]}</CardDescription>
       </CardHeader>
 
       <CardContent className="grid grid-cols-1 gap-6 xl:grid-cols-2">
@@ -35,9 +30,9 @@ export const LocomotiveCard = ({ locomotiveId }: Props) => {
           icon={Icons.dimensions}
           label="Dimensions in meters"
           info={[
-            { label: 'L', value: `${locomotive.dimensions.length}m` },
-            { label: 'W', value: `${locomotive.dimensions.width}m` },
-            { label: 'H', value: `${locomotive.dimensions.height}m` }
+            { label: 'L', value: `${dimensions.length}m` },
+            { label: 'W', value: `${dimensions.width}m` },
+            { label: 'H', value: `${dimensions.height}m` }
           ]}
         />
 
@@ -45,12 +40,12 @@ export const LocomotiveCard = ({ locomotiveId }: Props) => {
           icon={Icons.weight}
           label="Weight in metric tons"
           info={
-            locomotive.weight.wet
+            weight.wet
               ? [
-                  { label: 'DRY', value: `${locomotive.weight.dry}t` },
-                  { label: 'WET', value: `${locomotive.weight.wet}t` }
+                  { label: 'DRY', value: `${weight.dry}t` },
+                  { label: 'WET', value: `${weight.wet}t` }
                 ]
-              : [{ value: `${locomotive.weight.dry}t` }]
+              : [{ value: `${weight.dry}t` }]
           }
         />
 
@@ -58,11 +53,11 @@ export const LocomotiveCard = ({ locomotiveId }: Props) => {
           icon={Icons.loadRating}
           label="Load rating in metric tons"
           info={
-            locomotive.loadRating
+            loadRating
               ? [
-                  { label: '0%', value: `${locomotive.loadRating.flat}t` },
-                  { label: '2%', value: `${locomotive.loadRating.incline}t` },
-                  { label: 'WET 2%', value: `${locomotive.loadRating.wetIncline}t` }
+                  { label: '0%', value: `${loadRating.flat}t` },
+                  { label: '2%', value: `${loadRating.incline}t` },
+                  { label: 'WET 2%', value: `${loadRating.wetIncline}t` }
                 ]
               : undefined
           }
