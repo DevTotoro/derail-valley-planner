@@ -5,6 +5,7 @@ import {
   Eclipse,
   Flame,
   Menu,
+  Plus,
   RulerDimensionLine,
   Scale,
   TrainFront,
@@ -50,5 +51,6 @@ export const Icons = {
     </svg>
   ),
   electricCharger: Zap,
-  shop: DollarSign
+  shop: DollarSign,
+  plus: Plus
 };
