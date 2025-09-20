@@ -6,7 +6,7 @@ import type { WithSearchParams } from '@/lib/types';
 
 import { PageHeader } from '@/components/page-header';
 import { LocomotiveCard } from '@/components/locomotive-card';
-import { LocomotiveFilters } from '@/components/locomotive-filters';
+import { FilterControls } from '@/components/filter-controls';
 
 const title = 'Locomotives';
 
@@ -27,7 +27,13 @@ export default async function Locomotives({ searchParams }: WithSearchParams) {
       <PageHeader title={title} description="A list of all locomotives in Derail Valley" />
 
       <div className="flex flex-col gap-4">
-        <LocomotiveFilters filters={filters} />
+        <FilterControls
+          path="/locomotives"
+          queryKey="type"
+          filterOptions={locomotiveTypes}
+          currentFilters={filters}
+          className="hidden md:flex"
+        />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {filteredLocomotives.map(locomotiveId => (
             <LocomotiveCard key={locomotiveId} locomotiveId={locomotiveId} />

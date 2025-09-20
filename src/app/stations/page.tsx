@@ -6,7 +6,7 @@ import type { WithSearchParams } from '@/lib/types';
 
 import { PageHeader } from '@/components/page-header';
 import { StationCard } from '@/components/station-card';
-import { StationFilters } from '@/components/station-filters';
+import { FilterControls } from '@/components/filter-controls';
 
 const title = 'Stations';
 
@@ -27,7 +27,13 @@ export default async function Stations({ searchParams }: WithSearchParams) {
       <PageHeader title={title} description="A list of all stations in Derail Valley" />
 
       <div className="flex flex-col gap-4">
-        <StationFilters filters={filters} />
+        <FilterControls
+          path="/stations"
+          queryKey="utility"
+          filterOptions={stationUtilities}
+          currentFilters={filters}
+          className="hidden sm:flex"
+        />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {filteredStations.map(stationId => (
             <StationCard key={stationId} stationId={stationId} />
