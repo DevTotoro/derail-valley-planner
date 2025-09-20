@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
+import { HeroActionButton } from '@/components/hero-action-button';
 
 export default function Home() {
   return (
@@ -25,9 +26,7 @@ export default function Home() {
           </p>
 
           <div className="flex w-full items-center justify-center gap-2 pt-2">
-            <Button asChild size="sm">
-              <Link href="/deliveries">Get Started</Link>
-            </Button>
+            <HeroActionButton />
             <Button asChild size="sm" variant="ghost">
               <Link href="/locomotives">View Locomotives</Link>
             </Button>
