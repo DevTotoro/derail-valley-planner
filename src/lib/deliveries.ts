@@ -4,6 +4,7 @@ const STORAGE_KEY = 'dvp_deliveries';
 
 export const getDeliveries = (): Delivery[] => {
   if (typeof window === 'undefined') {
+    console.error('Window is not defined');
     throw new Error('Window is not defined');
   }
 
@@ -14,6 +15,7 @@ export const getDeliveries = (): Delivery[] => {
     const parsedDeliveries: unknown = JSON.parse(stored);
     return deliverySchema.array().parse(parsedDeliveries);
   } catch (error) {
+    console.error('Failed to parse deliveries from localStorage', error);
     throw error instanceof Error ? error : new Error('Unknown error');
   }
 };

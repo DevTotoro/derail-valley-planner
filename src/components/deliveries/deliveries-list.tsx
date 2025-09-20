@@ -19,8 +19,6 @@ export const DeliveriesList = () => {
       const storedDeliveries = getDeliveries();
       setDeliveries(storedDeliveries);
     } catch (error) {
-      console.error(error);
-
       setError(
         <Alert variant="destructive">
           <Icons.error />
