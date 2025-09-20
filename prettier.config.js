@@ -7,7 +7,8 @@ const prettierConfig = {
   useTabs: false,
   singleQuote: true,
   trailingComma: 'none',
-  arrowParens: 'avoid'
+  arrowParens: 'avoid',
+  plugins: ['prettier-plugin-tailwindcss']
 };
 
 export default prettierConfig;
