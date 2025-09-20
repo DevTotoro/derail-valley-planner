@@ -106,7 +106,7 @@ export const locomotives: Record<
     loadRating: { flat: 800, incline: 100, wetIncline: 50 }
   },
   'de6-860s': {
-    name: 'DE6-860S',
+    name: 'DE6-860S (Slug)',
     url: 'https://derailvalley.fandom.com/wiki/DE6_Slug',
     type: 'o',
     weight: { dry: 125 },
@@ -122,7 +122,7 @@ export const locomotives: Record<
     loadRating: undefined
   },
   'dm1u-150': {
-    name: 'DM1U-150',
+    name: 'DM1U-150 (URV)',
     url: 'https://derailvalley.fandom.com/wiki/DM1U_Utility_Rail_Vehicle',
     type: 'dm',
     weight: { dry: 10, wet: 10.4 },
