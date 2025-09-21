@@ -35,9 +35,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <Header />
-          <main className="flex min-h-0 flex-1 flex-col">
-            <div className="container-wrapper flex flex-1 flex-col">{children}</div>
-          </main>
+          <main className="flex min-h-0 flex-1 flex-col">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
