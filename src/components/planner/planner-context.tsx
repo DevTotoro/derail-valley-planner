@@ -5,7 +5,7 @@ import { useDebounce } from 'use-debounce';
 
 import type { Delivery } from '@/lib/schemas/delivery.schema';
 import { getStoredDelivery, storeDelivery } from '@/lib/deliveries';
-import { deliveryId } from '@/lib/utils';
+import { nanoid } from '@/lib/utils';
 
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -71,7 +71,7 @@ export const PlannerContextProvider = ({ children, id }: PropsWithChildren<{ id?
       setError(undefined);
       setDelivery({
         schemaVersion: 1,
-        id: deliveryId(),
+        id: nanoid(),
         name: 'New Delivery',
         rollingStock: []
       });
@@ -109,7 +109,7 @@ export const PlannerContextProvider = ({ children, id }: PropsWithChildren<{ id?
         <Separator />
       </div>
 
-      {children}
+      <div className="z-1">{children}</div>
     </PlannerContext.Provider>
   );
 };

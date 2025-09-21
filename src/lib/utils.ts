@@ -15,4 +15,4 @@ export const validateSearchParams = <T>(param: SearchParam, acceptedValues: T[])
   return values.filter(v => acceptedValues.includes(v as T)) as T[];
 };
 
-export const deliveryId = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 6);
+export const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 6);
