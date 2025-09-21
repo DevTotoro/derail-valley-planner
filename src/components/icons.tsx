@@ -4,6 +4,7 @@ import {
   DollarSign,
   Eclipse,
   Flame,
+  Loader2,
   Menu,
   Plus,
   RulerDimensionLine,
@@ -52,5 +53,6 @@ export const Icons = {
   ),
   electricCharger: Zap,
   shop: DollarSign,
-  plus: Plus
+  plus: Plus,
+  loading: Loader2
 };

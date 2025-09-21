@@ -3,14 +3,14 @@
 import { useMemo } from 'react';
 import Link from 'next/link';
 
-import { getDeliveries } from '@/lib/deliveries';
+import { getStoredDeliveries } from '@/lib/deliveries';
 
 import { Button } from '@/components/ui/button';
 
 export const HeroActionButton = () => {
   const hasDeliveries = useMemo(() => {
     try {
-      const storedDeliveries = getDeliveries();
+      const storedDeliveries = getStoredDeliveries();
       return storedDeliveries.length > 0;
     } catch {
       return false;

@@ -4,19 +4,19 @@ import { type ReactNode, useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import type { Delivery } from '@/lib/schemas/delivery.schema';
-import { getDeliveries } from '@/lib/deliveries';
+import { getStoredDeliveries } from '@/lib/deliveries';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Icons } from '@/components/icons';
 
 export const DeliveriesList = () => {
-  const [deliveries, setDeliveries] = useState<Delivery[] | undefined>([]);
+  const [deliveries, setDeliveries] = useState<Delivery[] | undefined>(undefined);
   const [error, setError] = useState<ReactNode | undefined>(undefined);
 
   // Load stored deliveries
   useEffect(() => {
     try {
-      const storedDeliveries = getDeliveries();
+      const storedDeliveries = getStoredDeliveries();
       setDeliveries(storedDeliveries);
     } catch (error) {
       setError(
@@ -29,11 +29,21 @@ export const DeliveriesList = () => {
     }
   }, []);
 
+  if (error) {
+    return error;
+  }
+
+  if (!deliveries) {
+    return (
+      <div className="flex justify-center pt-16">
+        <Icons.loading className="size-8 animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4">
-      {error}
-
-      {deliveries?.length === 0 && (
+      {deliveries.length === 0 && (
         <div className="text-muted-foreground flex flex-col pt-16 text-center text-sm font-extralight">
           <span className="font-medium">No deliveries yet</span>
           <span>
