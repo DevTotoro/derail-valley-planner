@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 
 import { Icons } from '@/components/icons';
 import { LocomotiveForm } from '@/components/planner/locomotive-form';
+import { CargoForm } from '@/components/planner/cargo-form';
 
 interface Props {
   rollingStock: RollingStock;
@@ -33,8 +34,8 @@ export const RollingStockCard = ({
   };
 
   return (
-    <Card className="w-full shrink-0 md:w-64">
-      <Tabs value={rollingStock.type} onValueChange={handleTypeChange}>
+    <Card className="w-full shrink-0 md:w-72">
+      <Tabs value={rollingStock.type} onValueChange={handleTypeChange} className="gap-4">
         <CardHeader className="flex items-center justify-between gap-4">
           <TabsList className="w-full max-w-xs">
             <TabsTrigger value="locomotive">Locomotive</TabsTrigger>
@@ -57,7 +58,9 @@ export const RollingStockCard = ({
               />
             )}
           </TabsContent>
-          <TabsContent value="cargo">Change your password here.</TabsContent>
+          <TabsContent value="cargo">
+            {rollingStock.type === 'cargo' && <CargoForm cargo={rollingStock} setCargo={handleRollingStockChange} />}
+          </TabsContent>
         </CardContent>
       </Tabs>
     </Card>

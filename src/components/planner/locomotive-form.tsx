@@ -28,8 +28,6 @@ interface Props {
 }
 
 export const LocomotiveForm = ({ locomotive, setLocomotive, previousRollingStock, nextRollingStock }: Props) => {
-  const options = locomotiveModels.map(model => ({ value: model, label: locomotives[model].name }));
-
   const locomotiveInfo = locomotive.model && locomotives[locomotive.model];
 
   const isActive = useMemo(() => {
@@ -65,9 +63,10 @@ export const LocomotiveForm = ({ locomotive, setLocomotive, previousRollingStock
 
   return (
     <div className="flex flex-col gap-4">
+      {/* Model */}
       <div className="flex flex-col gap-2">
         <Label htmlFor={`locomotive-model-${locomotive.id}`}>Model</Label>
-        <Select value={locomotive.model} onValueChange={handleModelChange}>
+        <Select value={locomotive.model ?? ''} onValueChange={handleModelChange}>
           <SelectTrigger id={`locomotive-model-${locomotive.id}`} className="w-full">
             <SelectValue placeholder="Select model" />
           </SelectTrigger>
@@ -75,9 +74,9 @@ export const LocomotiveForm = ({ locomotive, setLocomotive, previousRollingStock
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Model</SelectLabel>
-              {options.map(({ value, label }) => (
-                <SelectItem key={value} value={value}>
-                  {label}
+              {locomotiveModels.map(model => (
+                <SelectItem key={model} value={model}>
+                  {locomotives[model].name}
                 </SelectItem>
               ))}
             </SelectGroup>
@@ -85,6 +84,7 @@ export const LocomotiveForm = ({ locomotive, setLocomotive, previousRollingStock
         </Select>
       </div>
 
+      {/* Active */}
       <div className="flex items-center gap-3">
         <Checkbox
           id={`locomotive-active-${locomotive.id}`}
