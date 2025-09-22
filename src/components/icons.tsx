@@ -10,6 +10,7 @@ import {
   RulerDimensionLine,
   Scale,
   TrainFront,
+  Trash2,
   Weight,
   Wrench,
   Zap
@@ -54,5 +55,6 @@ export const Icons = {
   electricCharger: Zap,
   shop: DollarSign,
   plus: Plus,
-  loading: Loader2
+  loading: Loader2,
+  trash: Trash2
 };

@@ -23,8 +23,14 @@ export const PlannerComponent = () => {
     updateDelivery({ ...delivery, rollingStock: newRollingStock });
   };
 
+  const removeRollingStock = (id: string) => {
+    const newRollingStock = delivery.rollingStock.filter(r => r.id !== id);
+
+    updateDelivery({ ...delivery, rollingStock: newRollingStock });
+  };
+
   return (
-    <div className="flex flex-col gap-8 py-8 md:h-64 md:flex-row md:py-0">
+    <div className="flex w-full flex-col justify-center gap-8 py-8 md:h-64 md:flex-row md:py-0">
       <LinePlusButton aria-label="Add rolling stock" onClick={() => addRollingStock(0)} />
 
       {delivery.rollingStock.map((rs, i) => (
@@ -32,6 +38,7 @@ export const PlannerComponent = () => {
           <RollingStockCard
             rollingStock={rs}
             setRollingStock={updateRollingStock}
+            onDelete={() => removeRollingStock(rs.id)}
             previousRollingStock={i > 0 ? delivery.rollingStock[i - 1] : undefined}
             nextRollingStock={i < delivery.rollingStock.length - 1 ? delivery.rollingStock[i + 1] : undefined}
           />

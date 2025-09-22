@@ -9,6 +9,7 @@ import { nanoid } from '@/lib/utils';
 
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+
 import { Icons } from '@/components/icons';
 
 export const PlannerContext = createContext<{
@@ -111,7 +112,7 @@ export const PlannerContextProvider = ({ children, id }: PropsWithChildren<{ id?
         <Separator />
       </div>
 
-      <div className="z-1">{children}</div>
+      <div className="container-wrapper z-1">{children}</div>
     </PlannerContext.Provider>
   );
 };
