@@ -13,8 +13,10 @@ import { Icons } from '@/components/icons';
 
 export const PlannerContext = createContext<{
   delivery: Delivery;
+  updateDelivery: (delivery: Delivery) => void;
 }>({
-  delivery: {} as Delivery
+  delivery: {} as Delivery,
+  updateDelivery: () => {}
 });
 
 export const PlannerContextProvider = ({ children, id }: PropsWithChildren<{ id?: string }>) => {
@@ -102,7 +104,7 @@ export const PlannerContextProvider = ({ children, id }: PropsWithChildren<{ id?
   }
 
   return (
-    <PlannerContext.Provider value={{ delivery }}>
+    <PlannerContext.Provider value={{ delivery, updateDelivery: setDelivery }}>
       {/* Railway */}
       <div className="absolute hidden h-12 w-full flex-col items-center justify-between md:flex">
         <Separator />

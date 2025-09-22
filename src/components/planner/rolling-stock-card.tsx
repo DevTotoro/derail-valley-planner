@@ -2,15 +2,13 @@ import type { RollingStock } from '@/lib/schemas/delivery.schema';
 
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { DirtyLocomotive, LocomotiveForm } from '@/components/planner/locomotive-form';
-
-export type DirtyRollingStock = Pick<RollingStock, 'id' | 'type'> & Partial<Omit<RollingStock, 'id' | 'type'>>;
+import { LocomotiveForm } from '@/components/planner/locomotive-form';
 
 interface Props {
-  rollingStock: DirtyRollingStock;
-  setRollingStock: (rs: DirtyRollingStock) => void;
-  previousRollingStock?: DirtyRollingStock;
-  nextRollingStock?: DirtyRollingStock;
+  rollingStock: RollingStock;
+  setRollingStock: (rs: RollingStock) => void;
+  previousRollingStock?: RollingStock;
+  nextRollingStock?: RollingStock;
 }
 
 export const RollingStockCard = ({ rollingStock, setRollingStock, previousRollingStock, nextRollingStock }: Props) => {
@@ -20,8 +18,8 @@ export const RollingStockCard = ({ rollingStock, setRollingStock, previousRollin
     setRollingStock({ ...rollingStock, type: value });
   };
 
-  const handleLocomotiveChange = (locomotive: DirtyLocomotive) => {
-    setRollingStock({ ...rollingStock, ...locomotive });
+  const handleRollingStockChange = (updatedRollingStock: RollingStock) => {
+    setRollingStock({ ...rollingStock, ...updatedRollingStock });
   };
 
   return (
@@ -36,12 +34,14 @@ export const RollingStockCard = ({ rollingStock, setRollingStock, previousRollin
 
         <CardContent>
           <TabsContent value="locomotive">
-            <LocomotiveForm
-              locomotive={rollingStock as DirtyLocomotive}
-              setLocomotive={handleLocomotiveChange}
-              previousRollingStock={previousRollingStock}
-              nextRollingStock={nextRollingStock}
-            />
+            {rollingStock.type === 'locomotive' && (
+              <LocomotiveForm
+                locomotive={rollingStock}
+                setLocomotive={handleRollingStockChange}
+                previousRollingStock={previousRollingStock}
+                nextRollingStock={nextRollingStock}
+              />
+            )}
           </TabsContent>
           <TabsContent value="cargo">Change your password here.</TabsContent>
         </CardContent>

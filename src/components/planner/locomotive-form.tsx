@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import type { CheckedState } from '@radix-ui/react-checkbox';
 
-import type { Locomotive } from '@/lib/schemas/delivery.schema';
-import { locomotives } from '@/lib/config';
+import type { Locomotive, RollingStock } from '@/lib/schemas/delivery.schema';
+import { locomotiveModels, locomotives } from '@/lib/config';
 
 import {
   Select,
@@ -15,34 +15,27 @@ import {
 } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import type { DirtyRollingStock } from '@/components/planner/rolling-stock-card';
-
-export type DirtyLocomotive = Pick<Locomotive, 'id' | 'type'> & Partial<Omit<Locomotive, 'id' | 'type'>>;
 
 interface Props {
-  locomotive: DirtyLocomotive;
-  setLocomotive: (locomotive: DirtyLocomotive) => void;
-  previousRollingStock?: DirtyRollingStock;
-  nextRollingStock?: DirtyRollingStock;
+  locomotive: Locomotive;
+  setLocomotive: (locomotive: Locomotive) => void;
+  previousRollingStock?: RollingStock;
+  nextRollingStock?: RollingStock;
 }
 
 export const LocomotiveForm = ({ locomotive, setLocomotive, previousRollingStock, nextRollingStock }: Props) => {
-  const options = Object.entries(locomotives).map(([key, value]) => ({ value: key, label: value.name }));
+  const options = locomotiveModels.map(model => ({ value: model, label: locomotives[model].name }));
 
   const isActive = useMemo(() => {
     if (locomotive.model === 'caboose') return false;
 
     if (locomotive.model === 'de6-860s') {
-      if (previousRollingStock?.type === 'locomotive') {
-        const previousLocomotive = previousRollingStock as DirtyLocomotive;
-        if (previousLocomotive.model === 'de6-860' && previousLocomotive.active) return true;
-      }
-      if (nextRollingStock?.type === 'locomotive') {
-        const nextLocomotive = nextRollingStock as DirtyLocomotive;
-        if (nextLocomotive.model === 'de6-860' && nextLocomotive.active) return true;
-      }
-
-      return false;
+      return (
+        (previousRollingStock?.type === 'locomotive' &&
+          previousRollingStock.model === 'de6-860' &&
+          previousRollingStock.active) ||
+        (nextRollingStock?.type === 'locomotive' && nextRollingStock.model === 'de6-860' && nextRollingStock.active)
+      );
     }
 
     return locomotive.active ?? false;
@@ -51,9 +44,9 @@ export const LocomotiveForm = ({ locomotive, setLocomotive, previousRollingStock
   const isActiveDisabled = locomotive.model === 'caboose' || locomotive.model === 'de6-860s';
 
   const handleModelChange = (model: string) => {
-    if (!options.some(option => option.value === model)) return;
+    if (!locomotiveModels.includes(model as (typeof locomotiveModels)[number])) return;
 
-    setLocomotive({ ...locomotive, model });
+    setLocomotive({ ...locomotive, model: model as (typeof locomotiveModels)[number] });
   };
 
   const handleActiveChange = (active: CheckedState) => {
