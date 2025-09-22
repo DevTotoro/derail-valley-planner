@@ -39,6 +39,12 @@ export const storeDelivery = (delivery: Delivery) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(deliveries));
 };
 
+export const deleteStoredDelivery = (id: string) => {
+  const deliveries = getStoredDeliveries();
+  const updatedDeliveries = deliveries.filter(delivery => delivery.id !== id);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedDeliveries));
+};
+
 export const getDeliveryStats = (delivery: Delivery) => {
   const loadRating = delivery.rollingStock.reduce((acc, rs) => {
     if (rs.type === 'cargo' || !rs.model || !rs.active) return acc;
