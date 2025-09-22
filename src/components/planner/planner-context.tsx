@@ -7,7 +7,6 @@ import type { Delivery } from '@/lib/schemas/delivery.schema';
 import { getStoredDelivery, storeDelivery } from '@/lib/deliveries';
 import { nanoid } from '@/lib/utils';
 
-import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 import { Icons } from '@/components/icons';
@@ -93,26 +92,18 @@ export const PlannerContextProvider = ({ children, id }: PropsWithChildren<{ id?
   }, [debouncedDelivery]);
 
   if (error) {
-    return <div className="p-4">{error}</div>;
+    return <div className="flex flex-1 items-center justify-center p-4">{error}</div>;
   }
 
   if (!delivery) {
     return (
-      <div className="p-4">
+      <div className="flex flex-1 items-center justify-center p-4">
         <Icons.loading className="size-8 animate-spin" />
       </div>
     );
   }
 
   return (
-    <PlannerContext.Provider value={{ delivery, updateDelivery: setDelivery }}>
-      {/* Railway */}
-      <div className="absolute hidden h-12 w-full flex-col items-center justify-between md:flex">
-        <Separator />
-        <Separator />
-      </div>
-
-      <div className="container-wrapper z-1">{children}</div>
-    </PlannerContext.Provider>
+    <PlannerContext.Provider value={{ delivery, updateDelivery: setDelivery }}>{children}</PlannerContext.Provider>
   );
 };

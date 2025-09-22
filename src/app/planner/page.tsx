@@ -14,7 +14,7 @@ export default async function Planner({ searchParams }: WithSearchParams) {
   const { id } = await searchParams;
 
   return (
-    <div className="flex flex-1 items-center justify-center">
+    <div className="flex min-h-0 flex-1 flex-col">
       <PlannerComponent id={Array.isArray(id) ? id[0] : id} />
     </div>
   );

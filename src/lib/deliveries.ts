@@ -1,4 +1,5 @@
 import { deliverySchema, type Delivery } from '@/lib/schemas/delivery.schema';
+import { locomotives } from '@/lib/config';
 
 const STORAGE_KEY = 'dvp_deliveries';
 
@@ -36,4 +37,30 @@ export const storeDelivery = (delivery: Delivery) => {
   }
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(deliveries));
+};
+
+export const getDeliveryStats = (delivery: Delivery) => {
+  const loadRating = delivery.rollingStock.reduce((acc, rs) => {
+    if (rs.type === 'cargo' || !rs.model || !rs.active) return acc;
+
+    return acc + (locomotives[rs.model].loadRating?.incline ?? 0);
+  }, 0);
+
+  const weight = delivery.rollingStock.reduce((acc, rs) => {
+    if (rs.type === 'cargo') return acc + (rs.weight ?? 0);
+
+    if (!rs.model) return acc;
+
+    return acc + (locomotives[rs.model].weight.wet ?? 0);
+  }, 0);
+
+  const length = delivery.rollingStock.reduce((acc, rs) => {
+    if (rs.type === 'cargo') return acc + (rs.length ?? 0);
+
+    if (!rs.model) return acc;
+
+    return acc + (locomotives[rs.model].dimensions.length ?? 0);
+  }, 0);
+
+  return { loadRating, weight, length };
 };
