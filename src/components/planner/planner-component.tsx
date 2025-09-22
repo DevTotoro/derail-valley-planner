@@ -3,9 +3,11 @@ import { Fragment, useContext } from 'react';
 import { nanoid } from '@/lib/utils';
 import type { RollingStock } from '@/lib/schemas/delivery.schema';
 
+import { Button } from '@/components/ui/button';
+
 import { PlannerContext } from '@/components/planner/planner-context';
 import { RollingStockCard } from '@/components/planner/rolling-stock-card';
-import { LinePlusButton } from '@/components/line-plus-button';
+import { Icons } from '@/components/icons';
 
 export const PlannerComponent = () => {
   const { delivery, updateDelivery } = useContext(PlannerContext);
@@ -30,8 +32,16 @@ export const PlannerComponent = () => {
   };
 
   return (
-    <div className="flex w-full flex-col justify-center gap-8 py-8 md:h-64 md:flex-row md:py-0">
-      <LinePlusButton aria-label="Add rolling stock" onClick={() => addRollingStock(0)} />
+    <div className="flex w-full flex-col items-center justify-center gap-4 py-8 md:min-h-64 md:flex-row md:py-0">
+      <Button
+        size="icon"
+        variant="secondary"
+        aria-label="Add rolling stock"
+        className="size-8 rounded-full"
+        onClick={() => addRollingStock(0)}
+      >
+        <Icons.plus />
+      </Button>
 
       {delivery.rollingStock.map((rs, i) => (
         <Fragment key={rs.id}>
@@ -42,7 +52,16 @@ export const PlannerComponent = () => {
             previousRollingStock={i > 0 ? delivery.rollingStock[i - 1] : undefined}
             nextRollingStock={i < delivery.rollingStock.length - 1 ? delivery.rollingStock[i + 1] : undefined}
           />
-          <LinePlusButton aria-label="Add rolling stock" onClick={() => addRollingStock(i + 1)} />
+
+          <Button
+            size="icon"
+            variant="secondary"
+            aria-label="Add rolling stock"
+            className="size-8 rounded-full"
+            onClick={() => addRollingStock(i + 1)}
+          >
+            <Icons.plus />
+          </Button>
         </Fragment>
       ))}
     </div>

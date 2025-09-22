@@ -15,6 +15,10 @@ import {
 } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Separator } from '@/components/ui/separator';
+
+import { QuickInfo } from '@/components/quick-info';
+import { Icons } from '@/components/icons';
 
 interface Props {
   locomotive: Locomotive;
@@ -25,6 +29,8 @@ interface Props {
 
 export const LocomotiveForm = ({ locomotive, setLocomotive, previousRollingStock, nextRollingStock }: Props) => {
   const options = locomotiveModels.map(model => ({ value: model, label: locomotives[model].name }));
+
+  const locomotiveInfo = locomotive.model && locomotives[locomotive.model];
 
   const isActive = useMemo(() => {
     if (locomotive.model === 'caboose') return false;
@@ -46,7 +52,11 @@ export const LocomotiveForm = ({ locomotive, setLocomotive, previousRollingStock
   const handleModelChange = (model: string) => {
     if (!locomotiveModels.includes(model as (typeof locomotiveModels)[number])) return;
 
-    setLocomotive({ ...locomotive, model: model as (typeof locomotiveModels)[number] });
+    setLocomotive({
+      ...locomotive,
+      model: model as (typeof locomotiveModels)[number],
+      active: model !== 'de6-860s' && model !== 'caboose'
+    });
   };
 
   const handleActiveChange = (active: CheckedState) => {
@@ -84,6 +94,36 @@ export const LocomotiveForm = ({ locomotive, setLocomotive, previousRollingStock
         />
         <Label htmlFor={`locomotive-active-${locomotive.id}`}>Active</Label>
       </div>
+
+      {locomotiveInfo && (
+        <>
+          <Separator />
+
+          <div className="flex flex-col gap-2">
+            <QuickInfo
+              icon={Icons.dimensions}
+              label="Length in meters"
+              infoPoints={[{ value: `${locomotiveInfo.dimensions.length}m` }]}
+            />
+
+            <QuickInfo
+              icon={Icons.weight}
+              label="Weight in metric tons"
+              infoPoints={
+                locomotiveInfo.weight.wet
+                  ? [{ value: `${locomotiveInfo.weight.wet}t` }]
+                  : [{ value: `${locomotiveInfo.weight.dry}t` }]
+              }
+            />
+
+            <QuickInfo
+              icon={Icons.loadRating}
+              label="Load rating in metric tons on a 2.0% grade"
+              infoPoints={locomotiveInfo.loadRating ? [{ value: `${locomotiveInfo.loadRating.incline}t` }] : undefined}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };
