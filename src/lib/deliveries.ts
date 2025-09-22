@@ -47,7 +47,34 @@ export const deleteStoredDelivery = (id: string) => {
 
 export const getDeliveryStats = (delivery: Delivery) => {
   const loadRating = delivery.rollingStock.reduce((acc, rs) => {
-    if (rs.type === 'cargo' || !rs.model || !rs.active) return acc;
+    if (rs.type === 'cargo' || !rs.model) return acc;
+
+    // Special handling for DE6-860s
+    if (rs.model === 'de6-860s') {
+      const prevIndex = delivery.rollingStock.indexOf(rs) - 1;
+      const nextIndex = delivery.rollingStock.indexOf(rs) + 1;
+
+      const isPrevDE6 =
+        prevIndex >= 0 &&
+        delivery.rollingStock[prevIndex].type === 'locomotive' &&
+        delivery.rollingStock[prevIndex].model === 'de6-860' &&
+        delivery.rollingStock[prevIndex].active;
+      const isNextDE6 =
+        nextIndex < delivery.rollingStock.length &&
+        delivery.rollingStock[nextIndex].type === 'locomotive' &&
+        delivery.rollingStock[nextIndex].model === 'de6-860' &&
+        delivery.rollingStock[nextIndex].active;
+
+      if (isPrevDE6 && isNextDE6) {
+        return acc + 660;
+      }
+
+      if (isPrevDE6 || isNextDE6) {
+        return acc + 230;
+      }
+    }
+
+    if (!rs.active) return acc;
 
     return acc + (locomotives[rs.model].loadRating?.incline ?? 0);
   }, 0);
