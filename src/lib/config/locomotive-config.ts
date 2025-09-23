@@ -7,8 +7,21 @@ export const locomotiveTypes = {
   o: 'Other'
 };
 
+export const locomotiveModels = [
+  'de2-480',
+  'de6-860',
+  'dh4-670',
+  'dm3-540',
+  's060-440',
+  's282-730',
+  'be2-260',
+  'de6-860s',
+  'caboose',
+  'dm1u-150'
+] as const;
+
 export const locomotives: Record<
-  string,
+  (typeof locomotiveModels)[number],
   {
     name: string;
     url: string;

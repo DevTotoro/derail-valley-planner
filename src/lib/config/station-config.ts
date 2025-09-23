@@ -6,7 +6,33 @@ export const stationUtilities = {
   s: 'Shop'
 };
 
-export const stations: Record<string, { name: string; hex: string; utilities: (keyof typeof stationUtilities)[] }> = {
+export const stationIds = [
+  'CME',
+  'CMS',
+  'CP',
+  'CS',
+  'CW',
+  'FF',
+  'FM',
+  'FRC',
+  'FRS',
+  'GF',
+  'HB',
+  'IME',
+  'IMW',
+  'MB',
+  'MF',
+  'OR',
+  'OWC',
+  'OWN',
+  'SM',
+  'SW'
+] as const;
+
+export const stations: Record<
+  (typeof stationIds)[number],
+  { name: string; hex: string; utilities: (keyof typeof stationUtilities)[] }
+> = {
   CME: { name: 'Coal Mine East', hex: '#4a4c44', utilities: ['rs', 'ds', 'cs'] },
   CMS: { name: 'Coal Mine South', hex: '#353b31', utilities: ['cs'] },
   CP: { name: 'Coal Power Plant', hex: '#402e24', utilities: ['cs'] },

@@ -4,10 +4,13 @@ import {
   DollarSign,
   Eclipse,
   Flame,
+  Loader2,
   Menu,
+  Plus,
   RulerDimensionLine,
   Scale,
   TrainFront,
+  Trash2,
   Weight,
   Wrench,
   Zap
@@ -50,5 +53,8 @@ export const Icons = {
     </svg>
   ),
   electricCharger: Zap,
-  shop: DollarSign
+  shop: DollarSign,
+  plus: Plus,
+  loading: Loader2,
+  trash: Trash2
 };

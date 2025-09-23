@@ -1,11 +1,10 @@
 import Link from 'next/link';
-import type { ReactNode } from 'react';
 
 import { locomotives, locomotiveTypes } from '@/lib/config';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Icons } from '@/components/icons';
+import { QuickInfo } from '@/components/quick-info';
 
 interface Props {
   locomotiveId: keyof typeof locomotives;
@@ -26,20 +25,20 @@ export const LocomotiveCard = ({ locomotiveId }: Props) => {
       </CardHeader>
 
       <CardContent className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <InfoItem
+        <QuickInfo
           icon={Icons.dimensions}
           label="Dimensions in meters"
-          info={[
+          infoPoints={[
             { label: 'L', value: `${dimensions.length}m` },
             { label: 'W', value: `${dimensions.width}m` },
             { label: 'H', value: `${dimensions.height}m` }
           ]}
         />
 
-        <InfoItem
+        <QuickInfo
           icon={Icons.weight}
           label="Weight in metric tons"
-          info={
+          infoPoints={
             weight.wet
               ? [
                   { label: 'DRY', value: `${weight.dry}t` },
@@ -49,10 +48,10 @@ export const LocomotiveCard = ({ locomotiveId }: Props) => {
           }
         />
 
-        <InfoItem
+        <QuickInfo
           icon={Icons.loadRating}
           label="Load rating in metric tons"
-          info={
+          infoPoints={
             loadRating
               ? [
                   { label: '0%', value: `${loadRating.flat}t` },
@@ -64,45 +63,5 @@ export const LocomotiveCard = ({ locomotiveId }: Props) => {
         />
       </CardContent>
     </Card>
-  );
-};
-
-const InfoItem = ({
-  icon: Icon,
-  label,
-  info
-}: {
-  icon: (props: React.SVGProps<SVGSVGElement>) => ReactNode;
-  label: string;
-  info:
-    | {
-        label?: string;
-        value: string;
-      }[]
-    | undefined;
-}) => {
-  return (
-    <div className="flex items-start gap-4">
-      <Tooltip>
-        <TooltipTrigger>
-          <Icon className="inline size-5" />
-        </TooltipTrigger>
-
-        <TooltipContent>{label}</TooltipContent>
-      </Tooltip>
-
-      <div className="text-muted-foreground flex flex-col gap-1">
-        {info ? (
-          info.map(({ label, value }, index) => (
-            <div key={index} className="flex gap-1">
-              {label && <span className="inline-block min-w-[6ch]">{label}</span>}
-              <span className="font-bold">{value}</span>
-            </div>
-          ))
-        ) : (
-          <span className="font-bold">-</span>
-        )}
-      </div>
-    </div>
   );
 };

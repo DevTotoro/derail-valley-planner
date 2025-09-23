@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { stations, stationUtilities } from '@/lib/config';
+import { stationIds, stations, stationUtilities } from '@/lib/config';
 import { validateSearchParams } from '@/lib/utils';
 import type { WithSearchParams } from '@/lib/types';
 
@@ -18,9 +18,14 @@ export default async function Stations({ searchParams }: WithSearchParams) {
   const { utility } = await searchParams;
   const filters = validateSearchParams(utility, Object.keys(stationUtilities) as (keyof typeof stationUtilities)[]);
 
-  const filteredStations = Object.entries(stations)
-    .filter(([, station]) => (filters.length ? filters.every(filter => station.utilities.includes(filter)) : true))
-    .map(([stationId]) => stationId);
+  const filteredStations = stationIds.filter(stationId => {
+    if (filters.length === 0) return true;
+
+    const station = stations[stationId];
+    if (!station.utilities) return false;
+
+    return filters.every(filter => station.utilities?.includes(filter));
+  });
 
   return (
     <div className="flex flex-col gap-8 py-6 lg:py-8">

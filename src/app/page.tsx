@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Button } from '@/components/ui/button';
+import { HeroActions } from '@/components/hero-actions';
 
 export default function Home() {
   return (
@@ -24,14 +24,7 @@ export default function Home() {
             .
           </p>
 
-          <div className="flex w-full items-center justify-center gap-2 pt-2">
-            <Button asChild size="sm">
-              <Link href="/deliveries">Get Started</Link>
-            </Button>
-            <Button asChild size="sm" variant="ghost">
-              <Link href="/locomotives">View Locomotives</Link>
-            </Button>
-          </div>
+          <HeroActions />
         </div>
       </div>
     </section>

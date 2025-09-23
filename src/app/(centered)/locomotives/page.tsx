@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { locomotives, locomotiveTypes } from '@/lib/config';
+import { locomotiveModels, locomotives, locomotiveTypes } from '@/lib/config';
 import { validateSearchParams } from '@/lib/utils';
 import type { WithSearchParams } from '@/lib/types';
 
@@ -18,9 +18,11 @@ export default async function Locomotives({ searchParams }: WithSearchParams) {
   const { type } = await searchParams;
   const filters = validateSearchParams(type, Object.keys(locomotiveTypes) as (keyof typeof locomotiveTypes)[]);
 
-  const filteredLocomotives = Object.entries(locomotives)
-    .filter(([, locomotive]) => (filters.length ? filters.includes(locomotive.type) : true))
-    .map(([locomotiveId]) => locomotiveId);
+  const filteredLocomotives = locomotiveModels.filter(model => {
+    if (filters.length === 0) return true;
+
+    return filters.includes(locomotives[model].type);
+  });
 
   return (
     <div className="flex flex-col gap-8 py-6 lg:py-8">
